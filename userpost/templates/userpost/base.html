@@ -1,21 +1,22 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>Social Network</title>
   <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
 </head>
-
 <body>
 {% csrf_token %}
   <nav>
     <ul>
       {% if user.is_authenticated %}
         <li><a href="{% url 'post-list' %}">Home</a></li>
-        <li><a href="{% url 'create_post' %}">Create Post</a></li>
+        <li><a href="{% url 'user-create_post' %}">Create Post</a></li>
+        <li><a href="{% url 'user-logout' %}">Logout</a></li>
       {% else %}
-        <li><a href="{% url 'login' %}">Login</a></li>
-        <li><a href="{% url 'register' %}">Register</a></li>
+        <li><a href="{% url 'user-login' %}">Login</a></li>
+        <li><a href="{% url 'user-register' %}">Register</a></li>
       {% endif %}
     </ul>
   </nav>

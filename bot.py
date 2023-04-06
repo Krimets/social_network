@@ -27,7 +27,7 @@ posts_list = []
 
 # User register
 try:
-    for i in range(config['number_of_users']):
+    for i in range(1, config['number_of_users'] + 1):
         user_data = {
             'username': f'user{i}',
             'password': 'PASS12345678word',
@@ -53,7 +53,7 @@ except Exception as e:
     print(e, 'Please delete all bot users to start again')
 
 # User login
-for i in range(config['number_of_users']):
+for i in range(1, config['number_of_users'] + 1):
     user_data = {
         'username': f'user{i}',
         'password': 'PASS12345678word',
@@ -71,7 +71,7 @@ for i in range(config['number_of_users']):
 # Get analytics
 params = {
     'date_from': '2023-04-01',
-    'date_to': '2023-04-31'
+    'date_to': '2023-04-27'
 }
 response = requests.get(BASE_URL + 'analytics/', params=params, headers=headers)
 analytics = response.json()
