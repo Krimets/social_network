@@ -1,0 +1,12 @@
+{% extends 'userpost/base.html' %}
+
+{% block content %}
+  {% for post in posts %}
+    <div class="post">
+      <h2>{{ post.user.username }}</h2>
+      <p>{{ post.text }}</p>
+      <p>{{ post.created_at }}</p>
+      <p>Likes: {{ post.likes.count }}</p>
+    </div>
+  {% endfor %}
+{% endblock %}
