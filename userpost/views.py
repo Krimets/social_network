@@ -59,17 +59,6 @@ class CreatePostView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['DELETE'])
-@permission_classes([IsAuthenticated])
-def delete_post(request, post_id):
-    post = Post.objects.filter(user=request.user, id=post_id).first()
-    if not post:
-        return Response({'detail': 'Post not found'}, status=status.HTTP_404_NOT_FOUND)
-
-    post.delete()
-    return Response(status=status.HTTP_204_NO_CONTENT)
-
-
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def like_post(request, post_id):
