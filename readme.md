@@ -39,7 +39,7 @@ http://127.0.0.1:8000/api/login/
 http://127.0.0.1:8000/api/create_post/
 http://127.0.0.1:8000/api/like_post/<int:post_id>/
 http://127.0.0.1:8000/api/unlike_post/<int:post_id>/
-http://127.0.0.1:8000/api/analytics/
+http://127.0.0.1:8000/api/analytics/?date_from=2023-04-01&date_to=2023-04-27
 
 http://127.0.0.1:8000/api/token/
 http://127.0.0.1:8000/api/token/refresh/
