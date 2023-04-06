@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import register_user, login, CreatePostView, like_post, unlike_post, analytics, PostListView, register, \
-    user_login, user_create_post, user_logout
+    user_login, user_create_post, user_logout, user_like_post, user_unlike_post
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -14,6 +14,8 @@ urlpatterns = [
     path('login/', user_login, name='user-login'),
     path('create_post/', user_create_post, name='user-create_post'),
     path('logout/', user_logout, name='user-logout'),
+    path('posts/<int:pk>/like/', user_like_post, name='like_post'),
+    path('posts/<int:pk>/unlike/', user_unlike_post, name='unlike_post'),
 
     path('api/register/', register_user, name='register'),
     path('api/login/', login, name='login'),

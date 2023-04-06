@@ -6,7 +6,53 @@
       <h2>{{ post.user.username }}</h2>
       <p>{{ post.text }}</p>
       <p>{{ post.created_at }}</p>
-      <p>Likes: {{ post.likes.count }}</p>
+      <p>Likes: <span id="likes-count-{{ post.id }}">{{ post.likes.count }}</span></p>
+      <button type="button" class="btn btn-success like-btn" data-post-id="{{ post.id }}">Like</button>
+      <button type="button" class="btn btn-danger unlike-btn" data-post-id="{{ post.id }}">Unlike</button>
     </div>
   {% endfor %}
+
+  <script>
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+    document.querySelectorAll('.like-btn').forEach((btn) => {
+      btn.addEventListener('click', (event) => {
+        const postId = event.target.dataset.postId;
+        const likesCountEl = document.querySelector(`#likes-count-${postId}`);
+
+        fetch(`/posts/${postId}/like/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          likesCountEl.textContent = data.likes_count;
+        })
+        .catch(error => console.error(error));
+      });
+    });
+
+    document.querySelectorAll('.unlike-btn').forEach((btn) => {
+      btn.addEventListener('click', (event) => {
+        const postId = event.target.dataset.postId;
+        const likesCountEl = document.querySelector(`#likes-count-${postId}`);
+
+        fetch(`/posts/${postId}/unlike/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          likesCountEl.textContent = data.likes_count;
+        })
+        .catch(error => console.error(error));
+      });
+    });
+  </script>
 {% endblock %}

@@ -9,11 +9,30 @@ from .models import Post
 from django.views.generic import ListView
 from django.db import models
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as auth_login
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
+from django.http import JsonResponse
+
+
+@login_required
+def user_like_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.likes.add(request.user)
+    post.save()
+    likes_count = post.likes.count()
+    return JsonResponse({'likes_count': likes_count})
+
+
+@login_required
+def user_unlike_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    post.likes.remove(request.user)
+    post.save()
+    likes_count = post.likes.count()
+    return JsonResponse({'likes_count': likes_count})
 
 
 def user_logout(request):
